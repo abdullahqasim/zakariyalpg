@@ -22,38 +22,38 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Create some test customers
-        User::create([
-            'name' => 'John Customer',
-            'email' => 'john@example.com',
-            'password' => Hash::make('password'),
-            'type' => User::TYPE_CUSTOMER,
-        ]);
+        // User::create([
+        //     'name' => 'John Customer',
+        //     'email' => 'john@example.com',
+        //     'password' => Hash::make('password'),
+        //     'type' => User::TYPE_CUSTOMER,
+        // ]);
 
-        User::create([
-            'name' => 'Jane Customer',
-            'email' => 'jane@example.com',
-            'password' => Hash::make('password'),
-            'type' => User::TYPE_CUSTOMER,
-        ]);
+        // User::create([
+        //     'name' => 'Jane Customer',
+        //     'email' => 'jane@example.com',
+        //     'password' => Hash::make('password'),
+        //     'type' => User::TYPE_CUSTOMER,
+        // ]);
 
-        // Create some test suppliers
-        User::create([
-            'name' => 'Gas Supplier Co.',
-            'email' => 'supplier1@example.com',
-            'password' => Hash::make('password'),
-            'type' => User::TYPE_SUPPLIER,
-        ]);
+        // // Create some test suppliers
+        // User::create([
+        //     'name' => 'Gas Supplier Co.',
+        //     'email' => 'supplier1@example.com',
+        //     'password' => Hash::make('password'),
+        //     'type' => User::TYPE_SUPPLIER,
+        // ]);
 
-        User::create([
-            'name' => 'Premium Gas Ltd.',
-            'email' => 'supplier2@example.com',
-            'password' => Hash::make('password'),
-            'type' => User::TYPE_SUPPLIER,
-        ]);
+        // User::create([
+        //     'name' => 'Premium Gas Ltd.',
+        //     'email' => 'supplier2@example.com',
+        //     'password' => Hash::make('password'),
+        //     'type' => User::TYPE_SUPPLIER,
+        // ]);
 
         // Call the GasSalesTestSeeder for additional test data
-        $this->call([
-            GasSalesTestSeeder::class,
-        ]);
+        // $this->call([
+        //     GasSalesTestSeeder::class,
+        // ]);
     }
 }

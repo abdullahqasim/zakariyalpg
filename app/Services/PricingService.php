@@ -29,7 +29,7 @@ class PricingService
         $prices = [];
         
         foreach (self::AVAILABLE_SIZES as $size) {
-            $prices[$size] = $this->calculateProportionalPrice($basePrice11_8, $size, $roundToNearest);
+            $prices["$size"] = $this->calculateProportionalPrice($basePrice11_8, $size, $roundToNearest);
         }
         
         return $prices;

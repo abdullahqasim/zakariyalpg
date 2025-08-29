@@ -29,7 +29,7 @@ class SaleRequest extends FormRequest
             'discount_amount' => 'nullable|numeric|min:0|max:999999.99',
             'items' => 'required|array|min:1',
             'items.*.size_kg' => "required|numeric|in:{$availableSizes}",
-            'items.*.quantity' => 'required|integer|min:1|max:999',
+            'items.*.quantity' => 'required|integer|min:0|max:999',
             'items.*.unit_price' => 'nullable|numeric|min:0|max:999999.99',
         ];
     }

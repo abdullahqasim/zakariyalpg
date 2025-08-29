@@ -21,6 +21,18 @@
 
 <section class="content">
     <div class="container-fluid">
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            @endif
+            @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        @endif
         <form action="{{ route('sales.store') }}" method="POST" id="saleForm">
             @csrf
             <div class="row">
@@ -85,7 +97,11 @@
                             </div>
                         </div>
                     </div>
-
+                    @if($errors->has('items'))
+                    <div class="alert alert-danger">
+                        {{ $errors->first('items') }}
+                    </div>
+                    @endif
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Sale Items</h3>
@@ -96,12 +112,15 @@
                                 <div class="row item-row mb-3">
                                     <div class="col-md-3">
                                         <label>{{ $size }}kg Cylinder</label>
-                                        <input type="hidden" name="items[{{ $index }}][size_kg]" value="{{ $size }}">
+                                        <input class="item-size" type="hidden" name="items[{{ $index }}][size_kg]" value="{{ $size }}">
                                     </div>
                                     <div class="col-md-3">
                                         <label>Quantity</label>
                                         <input type="number" name="items[{{ $index }}][quantity]" 
                                                class="form-control item-quantity" min="0" value="0">
+                                        @error("items.$index.quantity")
+                                        <span class="invalid-feedback d-block">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-3">
                                         <label>Unit Price</label>
@@ -111,6 +130,9 @@
                                             </div>
                                             <input type="number" name="items[{{ $index }}][unit_price]" 
                                                    class="form-control item-unit-price" step="0.01" min="0" readonly>
+                                            @error("items.$index.unit_price")
+                                            <span class="invalid-feedback d-block">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -190,7 +212,7 @@ $(document).ready(function() {
     discountInput.on('input', calculateTotals);
     
     // Calculate line totals when quantity changes
-    $(document).on('input', '.item-quantity', function() {
+    $(document).on('change', '.item-quantity', function() {
         calculateLineTotal($(this));
         calculateTotals();
     });
@@ -222,6 +244,11 @@ $(document).ready(function() {
                 error: function() {
                     alert('Error calculating prices');
                 }
+            });
+        }else{
+            $('.item-row').each(function(index) {
+                $(this).find('.item-unit-price').val(0);
+                calculateLineTotal($(this).find('.item-quantity'));
             });
         }
     }

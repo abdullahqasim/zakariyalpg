@@ -30,7 +30,7 @@ class Purchase extends Model
         'weight_ton' => 'decimal:2',
         'rate_11_8_kg' => 'decimal:2',
         'total_kg' => 'decimal:2',
-        'total_cylinders' => 'integer',
+        'total_cylinders' => 'decimal:8',
         'total_amount' => 'decimal:2',
     ];
 
@@ -161,7 +161,7 @@ class Purchase extends Model
     public function calculateTotals(): void
     {
         $this->total_kg = $this->weight_ton * 1000;
-        $this->total_cylinders = (int) round($this->total_kg / 11.8);
+        $this->total_cylinders = $this->total_kg / 11.8;
         $this->total_amount = $this->total_cylinders * $this->rate_11_8_kg;
     }
 

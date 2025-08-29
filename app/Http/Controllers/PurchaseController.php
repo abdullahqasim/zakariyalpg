@@ -212,7 +212,7 @@ class PurchaseController extends Controller
         $rate11_8Kg = (float) $request->rate_11_8_kg;
         
         $totalKg = $weightTon * 1000;
-        $totalCylinders = (int) round($totalKg / 11.8);
+        $totalCylinders = $totalKg / 11.8;
         $totalAmount = $totalCylinders * $rate11_8Kg;
         
         return response()->json([

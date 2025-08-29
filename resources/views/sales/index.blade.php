@@ -114,7 +114,7 @@
                             <th>Customer</th>
                             <th>Status</th>
                             <th>Total</th>
-                            <th>Balance</th>
+                            {{-- <th>Balance</th> --}}
                             <th>Date</th>
                             <th>Actions</th>
                         </tr>
@@ -149,16 +149,15 @@
                                 @endswitch
                             </td>
                             <td>PKR{{ number_format($sale->grand_total, 2) }}</td>
-                            <td>
-                                aaa
-                                {{-- @if($sale->balance > 0)
+                            {{-- <td>
+                                @if($sale->balance > 0)
                                     <span class="text-danger">PKR{{ number_format($sale->balance, 2) }}</span>
                                 @elseif($sale->balance < 0)
                                     <span class="text-success">PKR{{ number_format(abs($sale->balance), 2) }}</span>
                                 @else
                                     <span class="text-success">PKR0.00</span>
-                                @endif --}}
-                            </td>
+                                @endif
+                            </td> --}}
                             <td>{{ $sale->created_at->format('M d, Y H:i') }}</td>
                             <td>
                                 <div class="btn-group">

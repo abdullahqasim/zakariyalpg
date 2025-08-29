@@ -24,7 +24,6 @@ class PurchaseService
             
             // Generate reference number
             $purchase->reference_no = $this->generatePurchaseReference();
-            
             // Save purchase
             $purchase = $this->purchaseRepository->create($purchase->toArray());
             

@@ -166,9 +166,9 @@
                                         <i class="fas fa-eye"></i>
                                     </a>
                                     @if($sale->status === 'draft')
-                                        <a href="{{ route('sales.edit', $sale) }}" class="btn btn-sm btn-warning">
+                                        {{-- <a href="{{ route('sales.edit', $sale) }}" class="btn btn-sm btn-warning">
                                             <i class="fas fa-edit"></i>
-                                        </a>
+                                        </a> --}}
                                         <a href="{{ route('sales.confirm', $sale) }}" class="btn btn-sm btn-success" 
                                            onclick="return confirm('Confirm this sale?')">
                                             <i class="fas fa-check"></i>

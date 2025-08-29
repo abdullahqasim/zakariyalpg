@@ -96,12 +96,12 @@
                   <p>Sales</p>
                 </a>
               </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a href="{{ route('transactions.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Transactions</p>
                 </a>
-              </li>
+              </li> --}}
               <li class="nav-item">
                 <a href="{{ route('ledger.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>

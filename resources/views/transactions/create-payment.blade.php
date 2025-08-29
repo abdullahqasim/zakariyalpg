@@ -95,7 +95,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group float-right">
                                 <button type="submit" class="btn btn-success">
                                     <i class="fas fa-save"></i> Record Payment
                                 </button>
@@ -135,7 +135,7 @@
                     </div>
                 </div>
 
-                <div class="card">
+                {{-- <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Quick Actions</h3>
                     </div>
@@ -151,7 +151,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

@@ -115,7 +115,9 @@
                             <th>Type</th>
                             <th>Amount</th>
                             <th>User</th>
-                            <th>Transactionable</th>
+                            <th>Details</th>
+                            <th>Debit</th>
+                            <th>Credit</th>
                             <th>Balance</th>
                         </tr>
                     </thead>
@@ -124,11 +126,20 @@
                         <tr>
                             <td>{{ $transaction->created_at->format('M d, Y H:i') }}</td>
                             <td>{{ $transaction->id }}</td>
-                            <td>{{ $transaction->transactionable_type }}</td>
+                            <td>
+                                @if($transaction->transaction_type == "sale")
+                                <span class="badge badge-primary" style="font-size: 100%;">Gas Sold</span>
+                                @elseif ($transaction->transaction_type == "payment_in")
+                                <span class="badge badge badge-success" style="font-size: 100%;">Payment Received</span>
+                                @endif
+                            </td>
                             <td>{{ $transaction->amount }}</td>
                             <td>{{ $transaction->user->name }}</td>
-                            <td>{{ $transaction->transactionable_type }}</td>
-                            <td>{{ $transaction->transactionable_id }}</td>
+                            <td>
+                                @if ($transaction->transaction_type == "sale")
+                                <b>Cylinder Rate: </b>{{ $transaction->transactionable->base_price_11_8 }}
+                                @endif
+                            </td>
                         </tr>
                         {{-- @dd($sale) --}}
                         {{-- <tr>

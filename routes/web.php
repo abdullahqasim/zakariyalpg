@@ -13,7 +13,11 @@ Route::get('/', function () {
     return redirect()->route('login');
     // return view('welcome');
 });
-Auth::routes();
+Auth::routes([
+    'register' => false,
+    // 'reset' => false,
+    // 'verify' => false, // If email verification routes are also not desired
+]);
 Route::middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
     // Sales Routes
@@ -29,7 +33,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('purchases/{purchase}/confirm', [PurchaseController::class, 'confirm'])->name('purchases.confirm');
     Route::get('purchases/{purchase}/cancel', [PurchaseController::class, 'cancel'])->name('purchases.cancel');
     Route::get('purchases/{purchase}/payment', [PurchaseController::class, 'createPayment'])->name('purchases.create-payment');
-    Route::post('purchases/{purchase}/payment', [PurchaseController::class, 'storePayment'])->name('purchases.store-payment');
+    Route::post('purchases/{purchase}/payment', [PurchaseController::class, 'recordPayment'])->name('purchases.record-payment');
     Route::get('purchases/{purchase}/pay-remaining', [PurchaseController::class, 'payRemaining'])->name('purchases.pay-remaining');
     Route::get('purchases/supplier/{supplierId}', [PurchaseController::class, 'supplierPurchases'])->name('purchases.supplier');
     Route::post('purchases/calculate-totals', [PurchaseController::class, 'calculateTotals'])->name('purchases.calculate-totals');
@@ -56,7 +60,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('supplier-ledger/supplier/{supplierId}', [SupplierLedgerController::class, 'supplier'])->name('supplier-ledger.supplier');
     Route::get('supplier-ledger/supplier/{supplierId}/summary', [SupplierLedgerController::class, 'supplierSummary'])->name('supplier-ledger.summary');
 });
-
-Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -58,6 +58,14 @@ class Sale extends Model
         return $this->hasMany(SaleItem::class);
     }
 
+    public function totalkg()
+    {
+        $totalKg = 0;
+        foreach($this->items as $item){
+            $totalKg += $item->size_kg * $item->quantity;
+        }
+    }
+
     /**
      * Get the transactions for the sale.
      */

@@ -17,6 +17,7 @@ class SupplierLedgerController extends Controller
 
     public function index(Request $request): View
     {
+        $openingBalance = 0;
         $supplierId = $request->get('supplier_id');
         $startDate = $request->get('start_date');
         $endDate = $request->get('end_date');
@@ -25,9 +26,10 @@ class SupplierLedgerController extends Controller
         
         if ($supplierId) {
             $supplier = User::findOrFail($supplierId);
-            $ledgerData = $this->purchaseService->getSupplierLedger($supplierId);
+            $ledgerData = $this->purchaseService->getSupplierLedger($supplierId, $startDate, $endDate);
             $transactions = $ledgerData['transactions'];
             $statistics = $ledgerData['statistics'];
+            $openingBalance = $ledgerData['opening_balance'];
         } else {
             $supplier = null;
             $transactions = collect();
@@ -39,7 +41,6 @@ class SupplierLedgerController extends Controller
                 'payment_count' => 0,
             ];
         }
-        
         return view('supplier-ledger.index', compact(
             'suppliers',
             'supplier',
@@ -47,7 +48,8 @@ class SupplierLedgerController extends Controller
             'statistics',
             'supplierId',
             'startDate',
-            'endDate'
+            'endDate',
+            'openingBalance'
         ));
     }
 
@@ -57,7 +59,7 @@ class SupplierLedgerController extends Controller
         $startDate = $request->get('start_date');
         $endDate = $request->get('end_date');
         
-        $ledgerData = $this->purchaseService->getSupplierLedger($supplierId);
+        $ledgerData = $this->purchaseService->getSupplierLedger($supplierId, $startDate, $endDate);
         $transactions = $ledgerData['transactions'];
         $statistics = $ledgerData['statistics'];
         

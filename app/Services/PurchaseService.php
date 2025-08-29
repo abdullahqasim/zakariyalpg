@@ -70,11 +70,13 @@ class PurchaseService
         });
     }
 
-    public function createPaymentOut(Purchase $purchase, float $amount, string $details = null): Transaction
+    public function createRecordPayment(Purchase $purchase, float $amount, string $details = null): Transaction
     {
         return DB::transaction(function () use ($purchase, $amount, $details) {
             // Create payment transaction
             $transaction = $this->transactionRepository->create([
+                'transactionable_type' => Purchase::class,
+                'transactionable_id' => $purchase->id,
                 'user_id' => $purchase->user_id,
                 'transaction_type' => Transaction::TYPE_PAYMENT_OUT,
                 'reference_no' => $purchase->reference_no,
@@ -91,14 +93,16 @@ class PurchaseService
         });
     }
 
-    public function getSupplierLedger(int $supplierId): array
+    public function getSupplierLedger(int $supplierId, $startDate, $endDate): array
     {
-        $transactions = $this->transactionRepository->getUserLedger($supplierId);
+        $transactions = $this->transactionRepository->getUserLedger($supplierId, $startDate, $endDate);
         $statistics = $this->purchaseRepository->getSupplierStatistics($supplierId);
+        $openingBalance = $this->transactionRepository->getOpeningBalance($supplierId, $startDate);
         
         return [
             'transactions' => $transactions,
             'statistics' => $statistics,
+            'opening_balance' => $openingBalance
         ];
     }
 

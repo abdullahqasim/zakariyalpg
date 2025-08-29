@@ -89,6 +89,76 @@
                         </dl>
                     </div>
                 </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Actions</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="btn-group-vertical w-100">
+                                @if($purchase->status === 'draft')
+                                    {{-- <a href="{{ route('purchases.edit', $purchase) }}" class="btn btn-warning mb-2">
+                                        <i class="fas fa-edit"></i> Edit Sale
+                                    </a> --}}
+                                    <a href="{{ route('purchases.confirm', $purchase) }}" class="btn btn-success mb-2"
+                                       onclick="return confirm('Confirm this sale?')">
+                                        <i class="fas fa-check"></i> Confirm Sale
+                                    </a>
+                                @endif
+    
+                                {{-- @if(in_array($purchase->status, ['draft', 'confirmed']))
+                                    <a href="{{ route('purchases.cancel', $purchase) }}" class="btn btn-danger mb-2"
+                                       onclick="return confirm('Cancel this sale?')">
+                                        <i class="fas fa-times"></i> Cancel Sale
+                                    </a>
+                                @endif --}}
+    
+                                @if($purchase->status !== 'draft' && $purchase->status !== 'cancelled')
+                                    <a href="{{ route('purchases.create-payment', $purchase) }}" class="btn btn-success mb-2">
+                                        <i class="fas fa-money-bill-wave"></i> Record Payment
+                                    </a>
+                                    
+                                    {{-- @if($purchase->balance > 0)
+                                        <a href="{{ route('transactions.pay-remaining', $purchase) }}" class="btn btn-info mb-2"
+                                           onclick="return confirm('Pay remaining balance of PKR{{ number_format($purchase->balance, 2) }}?')">
+                                            <i class="fas fa-credit-card"></i> Pay Remaining
+                                        </a>
+                                    @endif --}}
+    
+                                    {{-- <a href="{{ route('transactions.create-refund', $purchase) }}" class="btn btn-warning mb-2">
+                                        <i class="fas fa-undo"></i> Record Refund
+                                    </a> --}}
+    
+                                    {{-- <a href="{{ route('transactions.create-adjustment', $purchase) }}" class="btn btn-secondary mb-2">
+                                        <i class="fas fa-cog"></i> Record Adjustment
+                                    </a> --}}
+                                @endif
+    
+                                <a href="{{ route('purchases.index') }}" class="btn btn-outline-secondary">
+                                    <i class="fas fa-arrow-left"></i> Back to Purchases
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- Customer Information -->
+                    {{-- <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Customer Information</h3>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Sales Invoice:</strong> {{ $sale->invoice_no }}</p>
+                            <p><strong>Base Price (11.8 kg):</strong> {{ $sale->base_price_11_8 }}</p>
+                            <p><strong>Name:</strong> {{ $sale->user->name }}</p>
+                            <p><strong>Email:</strong> {{ $sale->user->email }}</p>
+                            <p><strong>Total:</strong> {{ $sale->grand_total }}</p>
+                            <p><strong>Date:</strong> {{ $sale->created_at->format(config('app.date_format_2')) }}</p>
+                            
+                            <a href="{{ route('sales.customer', $sale->user_id) }}" class="btn btn-sm btn-outline-info">
+                                <i class="fas fa-history"></i> View Customer Sales
+                            </a>
+                        </div>
+                    </div> --}}
+                </div>
             </div>
             {{-- Supplier Statistics --}}
         </div>

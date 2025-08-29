@@ -30,7 +30,9 @@ interface TransactionRepositoryInterface
     
     public function findByReference(string $referenceNo): ?Transaction;
     
-    public function getUserLedger(int $userId): Collection;
+    public function getUserLedger(int $userId, $startDate, $endDate): Collection;
+
+    public function getOpeningBalance(int $userId, $startDate): float;
     
     public function getSupplierLedger(int $supplierId): Collection;
     

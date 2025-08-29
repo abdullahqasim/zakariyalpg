@@ -90,13 +90,34 @@ class TransactionRepository implements TransactionRepositoryInterface
         })->first();
     }
     
-    public function getUserLedger(int $userId): Collection
+    public function getUserLedger(int $userId, $startDate, $endDate): Collection
     {
-        return Transaction::with(['user', 'transactionable'])
+        $query = Transaction::with(['user', 'transactionable'])
             ->where('user_id', $userId)
-            ->orderBy('created_at', 'asc')
-            ->get();
+            ->orderBy('created_at', 'asc');
+
+        if ($startDate && $endDate) {
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        } elseif ($startDate) {
+            $query->whereDate('created_at', '>=', $startDate);
+        } elseif ($endDate) {
+            $query->whereDate('created_at', '<=', $endDate);
+        }
+
+        return $query->get();
     }
+
+    public function getOpeningBalance(int $userId, $startDate): float
+    {
+        if (empty($startDate)) {
+            return 0.0;
+        }
+
+        return Transaction::where('user_id', $userId)
+            ->whereDate('created_at', '<', $startDate)
+            ->sum('amount'); // debit positive, credit negative
+    }
+    
     
     public function getSupplierLedger(int $supplierId): Collection
     {

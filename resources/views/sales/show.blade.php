@@ -211,9 +211,9 @@
                     <div class="card-body">
                         <div class="btn-group-vertical w-100">
                             @if($sale->status === 'draft')
-                                <a href="{{ route('sales.edit', $sale) }}" class="btn btn-warning mb-2">
+                                {{-- <a href="{{ route('sales.edit', $sale) }}" class="btn btn-warning mb-2">
                                     <i class="fas fa-edit"></i> Edit Sale
-                                </a>
+                                </a> --}}
                                 <a href="{{ route('sales.confirm', $sale) }}" class="btn btn-success mb-2"
                                    onclick="return confirm('Confirm this sale?')">
                                     <i class="fas fa-check"></i> Confirm Sale
@@ -243,9 +243,9 @@
                                     <i class="fas fa-undo"></i> Record Refund
                                 </a> --}}
 
-                                <a href="{{ route('transactions.create-adjustment', $sale) }}" class="btn btn-secondary mb-2">
+                                {{-- <a href="{{ route('transactions.create-adjustment', $sale) }}" class="btn btn-secondary mb-2">
                                     <i class="fas fa-cog"></i> Record Adjustment
-                                </a>
+                                </a> --}}
                             @endif
 
                             <a href="{{ route('sales.invoice', $sale) }}" class="btn btn-primary mb-2" target="_blank">

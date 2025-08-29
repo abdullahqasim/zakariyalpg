@@ -145,7 +145,7 @@ class PurchaseController extends Controller
         return view('purchases.create-payment', compact('purchase'));
     }
 
-    public function storePayment(Request $request, Purchase $purchase): RedirectResponse
+    public function recordPayment(Request $request, Purchase $purchase): RedirectResponse
     {
         $request->validate([
             'amount' => ['required', 'numeric', 'min:0.01', 'max:' . $purchase->balance],
@@ -153,7 +153,7 @@ class PurchaseController extends Controller
         ]);
         
         try {
-            $transaction = $this->purchaseService->createPaymentOut(
+            $transaction = $this->purchaseService->createRecordPayment(
                 $purchase,
                 (float) $request->amount,
                 $request->details
